@@ -1,4 +1,5 @@
 <?php
 // config.php
 define('EMAIL_HEADER', 'noreply@myticketsmaster.com');
-define('EMAIL_RECEIVER', 'Franciscojcano94@hotmail.com');
+define('EMAIL_RECEIVER', 'missminutesai@gmail.com');
+
